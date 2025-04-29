@@ -1,14 +1,14 @@
 import requests
 
 def test_passed_correct_credentials(base_url):
-    url = f"{base_url}/v1/login"
     
+    login_url = f"{base_url}/v1/login"
     payload = {
     "username": "vectorious@medtech.com",
     "password": "Aa123456"
     }
     # Sending a POST request with correct credentials
-    response = requests.post(url, json=payload)
+    response = requests.post(login_url, json=payload)
     # Checking the response status code
     assert response.status_code == 200
     

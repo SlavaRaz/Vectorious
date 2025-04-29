@@ -1,14 +1,14 @@
 import requests
 
 def test_failed_incorrect_credentials(base_url):
-    url = f"{base_url}/v1/login"
     
+    login_url = f"{base_url}/v1/login"
     payload = {
     "username": "wrong@medtech.com",
     "password": "wrongAa123456"
     }
     # Sending a POST request with incorrect credentials
-    response = requests.post(url, json=payload)
+    response = requests.post(login_url, json=payload)
     # Checking the response status code
     assert response.status_code == 404
     
