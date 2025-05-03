@@ -11,7 +11,6 @@ def test_passed_correct_credentials(base_url):
     response = requests.post(login_url, json=payload)
     # Checking the response status code
     assert response.status_code == 200
-    
     data = response.json()
     # Checking if the "tempAccessToken" key is present in the response
     assert "tempAccessToken" in data 
