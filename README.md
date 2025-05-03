@@ -7,21 +7,18 @@ project-root/
 ├── requirements.txt
 ├── README.md
 ├── tests/
-│   ├── test_algo_version.py
-│   ├── test_failed_first_auth_step.py
-│   ├── test_implant_count.py
-│   ├── test_passed_first_auth_step.py
+│    ├── test_algo_version.py
+│    ├── test_failed_first_auth_step.py
+│    ├── test_implant_count.py
+│    ├── test_passed_first_auth_step.py
 
-1.
-git clone https://github.com/SlavaRaz/Vectorious.git
+1.git clone https://github.com/SlavaRaz/Vectorious.git
 cd Vectorious
 
-2.
-python -m venv venv
+2.python -m venv venv
 source venv/bin/activate
 
-3.
-Install the dependencies:
+3.Install the dependencies:
 pip install -r requirements.txt
 
 To run all tests with the default mock API base URL:
