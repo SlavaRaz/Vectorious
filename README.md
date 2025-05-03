@@ -18,6 +18,18 @@ This project is a Pytest-based test automation suite for testing the Vectorious 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 git clone https://github.com/SlavaRaz/Vectorious
 cd api-test-suite
 
