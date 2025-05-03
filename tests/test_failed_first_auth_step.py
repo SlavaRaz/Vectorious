@@ -1,7 +1,20 @@
 import requests
 
 def test_failed_incorrect_credentials(base_url):
-    
+    """
+    Test that the login API returns the correct response for invalid credentials.
+
+    Sends a POST request with incorrect username and password, 
+    and verifies that:
+      - The response status code is 404 (Not Found).
+      - The response does not contain a 'tempAccessToken' key.
+
+    Args:
+        base_url (str): The base URL of the API.
+
+    Raises:
+        AssertionError: If the response status is not 404, or if 'tempAccessToken' is found.
+    """
     login_url = f"{base_url}/v1/login"
     payload = {
     "username": "wrong@medtech.com",

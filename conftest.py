@@ -6,7 +6,12 @@ import base64
 
 # Define a CLI option
 def pytest_addoption(parser):
-    
+    """
+    Add a command-line option to specify the base URL for API tests.
+
+    Args:
+        parser (_pytest.config.argparsing.Parser): The pytest parser object.
+    """
     parser.addoption(
         "--base-url",
         action="store",
@@ -17,13 +22,30 @@ def pytest_addoption(parser):
 # Create a fixture to access the CLI option easily
 @pytest.fixture(scope="session")
 def base_url(request):
-    # Access the base URL from the command line arguments
+
+    """
+    Get the base URL for API testing from the command-line argument.
+
+    Args:
+        request (FixtureRequest): The pytest request object.
+
+    Returns:
+        str: The base URL for the API.
+    """
     return request.config.getoption("--base-url")
 
 # Create a fixture to get the temporary access token
 @pytest.fixture(scope="session")
 def temp_access_token(base_url):
-    # Login to get the temporary access toke
+    """
+    Authenticate with the API and retrieve a temporary access token.
+
+    Args:
+        base_url (str): The base URL for the API.
+
+    Returns:
+        str: A temporary access token used for MFA authentication.
+    """    
     url = f"{base_url}/v1/login"
     payload = {
         "username": "vectorious@medtech.com",
@@ -40,7 +62,16 @@ def temp_access_token(base_url):
 # Create a fixture to get the permanent access token
 @pytest.fixture(scope="session")
 def permanent_access_token(base_url, temp_access_token):
-    # Use the temporary access token to get the permanent access token
+    """
+    Use the temporary token to obtain a permanent access token via MFA.
+
+    Args:
+        base_url (str): The base URL for the API.
+        temp_access_token (str): Temporary token from initial login.
+
+    Returns:
+        str: A permanent access token for authenticated requests.
+    """
     url = f"{base_url}/v1/mfa"
     headers = {
         "Bearer": f"{temp_access_token}",
@@ -62,7 +93,16 @@ def permanent_access_token(base_url, temp_access_token):
 # Create a fixture to get the implants data
 @pytest.fixture(scope="session")
 def implants(base_url, permanent_access_token):
-    
+    """
+    Retrieve the list of implants from the API.
+
+    Args:
+        base_url (str): The base URL for the API.
+        permanent_access_token (str): Valid permanent access token.
+
+    Returns:
+        list: A list of implant dictionaries.
+    """
     url = f"{base_url}/v1/implants"
     headers = {
         "Bearer": f"{permanent_access_token}"
@@ -81,6 +121,15 @@ def implants(base_url, permanent_access_token):
 # Create a fixture to decode the implants data
 @pytest.fixture(scope="session")
 def decoded_implants(implants):
+    """
+    Decode the base64-encoded 'coeffFile' from each implant and attach the parsed JSON.
+
+    Args:
+        implants (list): A list of implant dictionaries with base64 'coeffFile'.
+
+    Returns:
+        list: A list of implants with decoded 'coeffFile' data inserted.
+    """
     decoded = []
     for implant in implants:
         coeff_raw = implant["coeffFile"]
